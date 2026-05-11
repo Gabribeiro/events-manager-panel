@@ -14,7 +14,7 @@ Painel de gestão de eventos com controle de acesso, check-in de participantes e
 ### 1. Clonar e instalar dependências
 
 ```bash
-git clone <url-do-repositório>
+git clone https://github.com/Gabribeiro/events-manager-panel.git
 cd events-manager-panel
 npm install
 ```
