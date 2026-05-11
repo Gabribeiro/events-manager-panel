@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Reference — Events Manager</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: sans-serif; background: #fff; transition: background 0.2s; }
+      .topbar { display: none !important; }
+
+      /* Dark mode overrides */
+      body.dark { background: #0f172a; }
+
+      body.dark .swagger-ui,
+      body.dark .swagger-ui .info .title,
+      body.dark .swagger-ui .info p,
+      body.dark .swagger-ui .info li,
+      body.dark .swagger-ui .info table th,
+      body.dark .swagger-ui .info table td { color: #e2e8f0; }
+
+      body.dark .swagger-ui .scheme-container {
+        background: #1e293b;
+        box-shadow: none;
+      }
+
+      body.dark .swagger-ui .opblock-tag {
+        color: #e2e8f0;
+        border-color: #334155;
+      }
+
+      body.dark .swagger-ui .opblock {
+        background: #1e293b;
+        border-color: #334155;
+      }
+      body.dark .swagger-ui .opblock .opblock-summary-description { color: #94a3b8; }
+      body.dark .swagger-ui .opblock .opblock-section-header { background: #0f172a; }
+      body.dark .swagger-ui .opblock .opblock-section-header label { color: #e2e8f0; }
+      body.dark .swagger-ui .opblock-body pre { background: #0f172a !important; color: #e2e8f0; }
+
+      body.dark .swagger-ui section.models {
+        background: #1e293b;
+        border-color: #334155;
+      }
+      body.dark .swagger-ui section.models .model-container { background: #0f172a; }
+      body.dark .swagger-ui section.models h4 { color: #e2e8f0; }
+      body.dark .swagger-ui .model { color: #e2e8f0; }
+      body.dark .swagger-ui .model .prop-type { color: #818cf8; }
+
+      body.dark .swagger-ui textarea,
+      body.dark .swagger-ui input[type="text"],
+      body.dark .swagger-ui input[type="email"],
+      body.dark .swagger-ui input[type="password"] {
+        background: #1e293b;
+        color: #e2e8f0;
+        border-color: #475569;
+      }
+      body.dark .swagger-ui select {
+        background: #1e293b;
+        color: #e2e8f0;
+        border-color: #475569;
+      }
+      body.dark .swagger-ui .btn { color: #e2e8f0; border-color: #475569; }
+
+      body.dark .swagger-ui table tbody tr td { color: #e2e8f0; border-color: #334155; }
+      body.dark .swagger-ui table thead tr th { color: #94a3b8; border-color: #334155; }
+
+      body.dark .swagger-ui .parameter__name { color: #e2e8f0; }
+      body.dark .swagger-ui .parameter__type { color: #818cf8; }
+      body.dark .swagger-ui .parameters-col_description p { color: #94a3b8; }
+
+      body.dark .swagger-ui .markdown code,
+      body.dark .swagger-ui .renderedMarkdown code {
+        background: #1e293b;
+        color: #818cf8;
+      }
+
+      body.dark .swagger-ui .response-col_description pre.microlight { background: #0f172a !important; }
+    </style>
+  </head>
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+    <script>
+      SwaggerUIBundle({
+        url: '/api/openapi',
+        dom_id: '#swagger-ui',
+        presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
+        layout: 'BaseLayout',
+        docExpansion: 'list',
+        defaultModelsExpandDepth: 1,
+        tryItOutEnabled: true,
+      });
+
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.type === 'theme') {
+          document.body.classList.toggle('dark', e.data.value === 'dark');
+        }
+      });
+    </script>
+  </body>
+</html>
