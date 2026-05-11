@@ -78,7 +78,8 @@ export function useCheckin(eventId: string, messages: CheckinMessages) {
 
       await ParticipantsService.update(participant.id, {
         status: newStatus,
-        checkin_count: participant.checkin_count + 1,
+        checkin_count:
+          action === 'entry' ? participant.checkin_count + 1 : participant.checkin_count,
       });
 
       const newCheckinCount =
