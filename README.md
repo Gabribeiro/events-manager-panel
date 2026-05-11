@@ -77,7 +77,7 @@ npm test
 
 - Alternância entre modo claro e escuro com botão Sun/Moon em todas as telas
 - Detecta automaticamente a preferência do sistema (`prefers-color-scheme`)
-- Persiste a escolha do usuário entre sessões (localStorage via `next-themes`)
+- Persiste a escolha do usuário entre sessões (localStorage)
 - Todos os componentes têm variantes `dark:` — cards, tabelas, inputs, gráficos (Recharts Tooltip dinâmico), skeletons e badges
 
 ### Documentação da API (Swagger)
@@ -113,7 +113,7 @@ npm test
 | **Tailwind CSS 4** | Utilidade-first com excelente DX; evita context-switch para arquivos de estilo |
 | **Vitest + Testing Library** | Setup ultrarrápido com jsdom, API idêntica ao Jest mas com melhor suporte a ESM e Vite |
 | **i18next + react-i18next** | Solução madura para i18n; `getT(lang)` síncrono para Server Components e `useLang()` context para Client Components |
-| **next-themes** | Gerenciamento de tema dark/light com detecção de preferência do sistema e persistência sem flash de hidratação |
+| **ThemeProvider próprio** | `useLayoutEffect` aplica a classe `dark` antes do primeiro paint sem injetar `<script>` no React tree — evita warning do React 19 que a biblioteca `next-themes@0.4.x` dispara |
 
 ### Arquitetura
 
@@ -137,7 +137,7 @@ Componentes de servidor (ex.: `EventCard`, `EventList`, `DashboardHeader`) receb
 
 ### Estratégia de tema
 
-`next-themes` injeta a classe `dark` no `<html>` e o Tailwind CSS 4 aplica os estilos via `@custom-variant dark`. Os componentes Recharts (Tooltip e CartesianGrid) não suportam classes CSS — eles leem `useTheme().resolvedTheme` em tempo de execução para aplicar as cores corretas dinamicamente.
+`ThemeProvider` próprio (sem dependência externa) usa `useLayoutEffect` para ler o `localStorage` e aplicar a classe `dark` no `<html>` antes do primeiro paint — sem flash e sem injetar `<script>` na árvore React (padrão que o React 19 rejeita com warning). O Tailwind CSS 4 aplica os estilos via `@custom-variant dark`. Os componentes Recharts (Tooltip e CartesianGrid) não suportam classes CSS — eles leem `useTheme().resolvedTheme` em tempo de execução para aplicar as cores corretas dinamicamente.
 
 ### Otimizações
 
@@ -145,6 +145,12 @@ Componentes de servidor (ex.: `EventCard`, `EventList`, `DashboardHeader`) receb
 - Debounce de 300ms na busca para não disparar re-renders a cada tecla
 - `QueryClient` com `staleTime: 30s` para evitar refetch excessivo na navegação entre páginas
 - Tabela de participantes com versão desktop (table) e mobile (cards) para melhor responsividade
+
+### Bugs encontrados e corrigidos durante o desenvolvimento
+
+**`checkin_count` do participante contava saídas como entradas** — o PATCH `/participants` incrementava o contador em toda ação (entrada _e_ saída de VIP). Corrigido para incrementar apenas em `action === 'entry'`, refletindo corretamente o número de vezes que o participante entrou no evento.
+
+**Contadores da listagem não atualizavam ao voltar do dashboard** — `invalidateQueries` apontava para `['events', eventId]` (query do detalhe), enquanto a listagem usa a chave `['events']`. O React Query não propaga invalidação para chaves pai. Corrigido para invalidar `['events']`, que cobre lista e detalhe via fuzzy matching.
 
 ---
 
