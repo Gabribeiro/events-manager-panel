@@ -1,0 +1,87 @@
+{
+  "events_page": {
+    "title": "Gestão de Eventos",
+    "loading": "Carregando...",
+    "total_one": "1 evento no total",
+    "total_other": "{{count}} eventos no total",
+    "api_docs": "API Docs"
+  },
+  "event_status": {
+    "active": "Ativo",
+    "closed": "Encerrado",
+    "cancelled": "Cancelado"
+  },
+  "participant_type": {
+    "vip": "VIP",
+    "normal": "Normal"
+  },
+  "participant_status": {
+    "inside": "Dentro",
+    "outside": "Fora"
+  },
+  "filters": {
+    "search_placeholder": "Buscar evento...",
+    "search_aria": "Buscar eventos",
+    "all_statuses": "Todos os status",
+    "status_aria": "Filtrar por status",
+    "date": "Data",
+    "sort_asc_aria": "Ordenar por data: crescente",
+    "sort_desc_aria": "Ordenar por data: decrescente"
+  },
+  "event_card": {
+    "participants": "{{checkin}}/{{expected}} participantes",
+    "entry_rate": "{{rate}} entrada"
+  },
+  "event_list": {
+    "loading_aria": "Carregando eventos",
+    "error_title": "Erro ao carregar eventos",
+    "error_desc": "Verifique se o servidor da API está rodando e tente novamente.",
+    "empty_title": "Nenhum evento encontrado",
+    "empty_desc": "Tente ajustar os filtros de busca."
+  },
+  "nav": {
+    "back_to_events": "Voltar aos eventos",
+    "back_to_panel": "Voltar ao painel"
+  },
+  "dashboard": {
+    "expected_participants": "Participantes Esperados",
+    "checkins_done": "Check-ins Realizados",
+    "error_attempts": "Tentativas com Erro",
+    "entry_rate_label": "Taxa de Entrada",
+    "of_expected": "de {{count}} esperados",
+    "event_closed_msg": "Este evento está encerrado. Novos check-ins não são permitidos.",
+    "event_cancelled_msg": "Este evento foi cancelado.",
+    "chart_entries_title": "Entradas por Horário",
+    "chart_no_checkins": "Nenhum check-in registrado ainda.",
+    "chart_proportion_title": "Sucesso vs Erros",
+    "chart_success": "Sucesso",
+    "chart_errors": "Erros",
+    "participants_title": "Participantes ({{count}})",
+    "no_participants": "Nenhum participante inscrito neste evento.",
+    "col_name": "Nome",
+    "col_type": "Tipo",
+    "col_status": "Status",
+    "col_checkins": "Check-ins",
+    "col_action": "Ação",
+    "mobile_checkins_one": "{{count}} check-in",
+    "mobile_checkins_other": "{{count}} check-ins",
+    "not_found_title": "Evento não encontrado",
+    "not_found_desc": "O evento solicitado não existe ou houve um erro ao carregá-lo."
+  },
+  "checkin": {
+    "blocked": "Bloqueado",
+    "already_done": "Já realizado",
+    "register_exit": "Registrar Saída",
+    "register_entry": "Registrar Entrada",
+    "btn_checkin": "Check-in",
+    "event_closed_tooltip": "Evento encerrado",
+    "event_cancelled_tooltip": "Evento cancelado",
+    "toast_success_entry": "Check-in registrado com sucesso!",
+    "toast_success_exit": "Saída registrada com sucesso!",
+    "toast_error_closed": "Evento encerrado. Check-ins não são permitidos.",
+    "toast_error_duplicate": "Participante já realizou check-in."
+  },
+  "api_docs": {
+    "base_url": "Base URL:"
+  }
+}
