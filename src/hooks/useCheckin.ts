@@ -53,7 +53,7 @@ export function useCheckin(eventId: string, messages: CheckinMessages) {
         });
 
         queryClient.invalidateQueries({ queryKey: ['checkins', eventId] });
-        queryClient.invalidateQueries({ queryKey: ['events', eventId] });
+        queryClient.invalidateQueries({ queryKey: ['events'] });
 
         throw new Error(messages.errorDuplicate);
       }
