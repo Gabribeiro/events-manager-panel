@@ -8,7 +8,7 @@ Painel de gestão de eventos com controle de acesso, check-in de participantes e
 
 ### Pré-requisitos
 
-- Node.js 18+
+- Node.js 20.9.0+ (Obrigatório para Next.js 16+)
 - npm
 
 ### 1. Clonar e instalar dependências
@@ -16,6 +16,7 @@ Painel de gestão de eventos com controle de acesso, check-in de participantes e
 ```bash
 git clone https://github.com/Gabribeiro/events-manager-panel.git
 cd events-manager-panel
+nvm use # Garante a versão correta do Node baseada no .nvmrc (caso possua nvm)
 npm install
 ```
 
@@ -26,9 +27,10 @@ Em um terminal separado:
 ```bash
 git clone https://github.com/ThiagoLifters/api_test.git ~/api_test
 cd ~/api_test
-npx json-server --watch db.json --port 3001
+npx --yes json-server@0.17.4 --watch db.json --port 3001
 ```
 
+> **Aviso:** É importante usar a versão `@0.17.4` do json-server. Versões `1.0.0+` alteraram a API da CLI e removeram a flag `--watch`.
 > A API ficará disponível em `http://localhost:3001`
 
 ### 3. Rodar o servidor de desenvolvimento
@@ -151,6 +153,10 @@ Componentes de servidor (ex.: `EventCard`, `EventList`, `DashboardHeader`) receb
 **`checkin_count` do participante contava saídas como entradas** — o PATCH `/participants` incrementava o contador em toda ação (entrada _e_ saída de VIP). Corrigido para incrementar apenas em `action === 'entry'`, refletindo corretamente o número de vezes que o participante entrou no evento.
 
 **Contadores da listagem não atualizavam ao voltar do dashboard** — `invalidateQueries` apontava para `['events', eventId]` (query do detalhe), enquanto a listagem usa a chave `['events']`. O React Query não propaga invalidação para chaves pai. Corrigido para invalidar `['events']`, que cobre lista e detalhe via fuzzy matching.
+
+**Problemas de Build (Bus error / Exit silencioso) em novas máquinas** — Ao clonar o projeto em um novo ambiente ou usar versão incompatível do Node, o `next dev` fechava silenciosamente e o `next build` apresentava `Bus error`. Isso ocorre pelo Turbopack/SWC corrompidos ou em choque com Node.js < 20.9.0. **Solução:** Atualizar o Node.js e limpar os caches caso ocorra: `rm -rf node_modules .next package-lock.json && npm install`.
+
+**Mismatch de Hidratação de i18n entre Server e Client** — Durante o primeiro render no cliente, o `react-i18next` assumia o idioma do navegador do usuário, entrando em conflito com o idioma que o servidor havia pré-renderizado via prop da rota, causando um `Hydration failed`. **Solução:** Atualizado o hook `useTranslation` para usar `getT(lang)` de forma síncrona, ancorando-se rigidamente na rota.
 
 ---
 

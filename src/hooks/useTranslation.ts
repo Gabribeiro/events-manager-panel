@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation as useI18nTranslation } from 'react-i18next';
 import '@/config/i18n';
 import type { LangType } from '@/types/lang';
+import { getT } from '@/utils/getT';
 
 export function useTranslation(lang: LangType) {
-  const { t, i18n } = useI18nTranslation();
+  const { i18n } = useI18nTranslation();
 
   useEffect(() => {
     if (i18n.language !== lang) {
@@ -14,6 +15,8 @@ export function useTranslation(lang: LangType) {
       document.cookie = `i18next=${lang}; path=/; max-age=31536000; SameSite=Lax`;
     }
   }, [lang, i18n]);
+
+  const t = useMemo(() => getT(lang), [lang]);
 
   return { t };
 }
